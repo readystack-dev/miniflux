@@ -1,0 +1,85 @@
+{
+  "apt_refresh": [
+    {
+      "min_version": "2.39-0ubuntu8.12",
+      "package": "libc6",
+      "reason": "UBUNTU-CVE-2026-84243: libc6 2.39-0ubuntu8.9 -> 2.39-0ubuntu8.12"
+    }
+  ],
+  "binaries_from_component_images": [],
+  "binaries_from_source": [
+    {
+      "build_flags": [
+        "-trimpath"
+      ],
+      "build_tags": [],
+      "cgo_enabled": 0,
+      "ldflags": "-s -w -X miniflux.app/v2/internal/version.Version=@VERSION_BARE@ -X miniflux.app/v2/internal/version.Commit=@COMMIT:8@",
+      "main_pkg": ".",
+      "name": "miniflux",
+      "out_path": "/usr/bin/miniflux",
+      "verify_subcmd": "-version"
+    }
+  ],
+  "build_method": "source-rebuild-go",
+  "chain_id": 1151,
+  "dep_bumps": [
+    {
+      "module": "golang.org/x/net",
+      "to": "v0.60.0",
+      "why": "Go 1.26.9 security release companion (golang.org/x/net fixes); added fleet-wide 2026-10-10 after coder 514 and mattermost 453 parked at verdict on it"
+    },
+    {
+      "module": "github.com/klauspost/compress",
+      "to": "v1.18.7",
+      "why": "CVE-2026-63209 (GHSA-259r-337f-4rfw, HIGH per GitHub; Scout rates it lower) \u2014 OSV cross-check on zitadel 516 and harbor 519; fleet-wide floor 2026-10-10"
+    },
+    {
+      "module": "github.com/go-jose/go-jose/v4",
+      "to": "v4.1.6",
+      "why": "GHSA-mgcc-cww5-fp2q / CVE-2026-116587 (high, published 2026-10-27): github.com/go-jose/go-jose/v4 v4.1.4 -> v4.1.6 (scripts/cve-floor.py)"
+    }
+  ],
+  "expected_residuals": [],
+  "images": [
+    {
+      "digest": "sha256:dc40a13b61304647ed7e5d581d246b86413dfc29d63c6d018310feb93cd98fc0",
+      "ref": "golang:1.26.11-bookworm",
+      "role": "builder"
+    },
+    {
+      "digest": "sha256:dc40a13b61304647ed7e5d581d246b86413dfc29d63c6d018310feb93cd98fc0",
+      "ref": "golang:1.26.11-bookworm",
+      "role": "offline_builder"
+    },
+    {
+      "digest": "sha256:9c7f200c07e3d4a03e7249d2c16bf66a51120fb876aa2242cf31451412543289",
+      "ref": "ubuntu:24.04",
+      "role": "base"
+    }
+  ],
+  "mod_replaces": [],
+  "runtime_base": {
+    "kind": "chisel",
+    "shell": true
+  },
+  "schema": "kitforge.toolchain_lock.v1",
+  "slug": "miniflux",
+  "source": {
+    "build_env": {
+      "CGO_ENABLED": "0",
+      "GOTOOLCHAIN": "local"
+    },
+    "builder_image": "golang:1.26.11-bookworm",
+    "commit": "faecfa2fac61a91f4f69550bb1afd506c4b51749",
+    "commit_epoch": 1793505308,
+    "go_module_root": "miniflux.app/v2",
+    "go_version_required": "1.26.0",
+    "ref": "2.3.5",
+    "repo": "https://github.com/miniflux/v2",
+    "source_date_epoch": 1795161110,
+    "source_date_epoch_basis": "release-cut",
+    "source_date_epoch_provenance": "the time release 2.3.5-CE-ubuntu24.04-r4 was cut (2026-11-20T07:51:50Z), by scripts/retarget.py --rev-bump: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit faecfa2fac61, dated 2026-11-01T03:55:08Z (source.commit_epoch)."
+  },
+  "version": "2.3.5"
+}

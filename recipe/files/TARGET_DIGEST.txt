@@ -1,0 +1,8 @@
+image_manifest_digest=sha256:d2b7bbf466fd39c1928fd8e609ddd9d757eae1d5a8285949834dbb8f92c7b98d
+config_digest=sha256:fed808a26da5c539264497a3c45cdf4c1460b600c9c7cd5c04ce993aeace0b7f
+tag=readystack/miniflux:2.3.5-CE-ubuntu24.04-r4
+probe_port=8080
+probe_path=/healthcheck
+probe_timeout=180
+verify_boot=skip
+verify_boot_reason=this image needs db (not part of this archive); boot it with your own services as the admin handbook describes

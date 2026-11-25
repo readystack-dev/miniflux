@@ -1,0 +1,57 @@
+{
+  "schema": "kitforge.build_recipe.v1",
+  "slug": "miniflux",
+  "image": "readystack/miniflux:2.3.5-CE-ubuntu24.04-r4",
+  "build_method": "source-rebuild-go",
+  "source": {
+    "repo": "https://github.com/miniflux/v2",
+    "ref": "2.3.5",
+    "builder_image": "golang:1.26.11-bookworm",
+    "go_module_root": "miniflux.app/v2",
+    "go_version_required": "1.26.0",
+    "source_date_epoch": 1795161110,
+    "source_date_epoch_provenance": "the time release 2.3.5-CE-ubuntu24.04-r4 was cut (2026-11-20T07:51:50Z), by scripts/retarget.py --rev-bump: ReadyStack dates an image by when its release was packaged (owner 2026-11-10), recorded here once and used by every rebuild of the release; it builds upstream commit faecfa2fac61, dated 2026-11-01T03:55:08Z (source.commit_epoch).",
+    "build_env": {
+      "CGO_ENABLED": "0",
+      "GOTOOLCHAIN": "local"
+    },
+    "_version_note": "Retargeted 2026-10-22 to 2.3.4, the latest GA (GitHub release 2026-10-20). The release tag has NO leading v -- it is `2.3.4`, not `v2.3.4` (see retarget_tag_pattern) -- while the go module path is miniflux.app/v2, so the `/v2` is the module major and not part of the version. go.mod declares `go 1.26.0` with no toolchain directive; the golang:1.26 builder (latest patch) satisfies it under GOTOOLCHAIN=local. No go.work.",
+    "_vendor_note": "vendor/ is NOT committed, so the vendor stage runs the standard `go mod tidy -e && go mod vendor`. Deliberately does NOT set source.vendor_committed -- that knob is only correct for trees that ship their own vendor directory.",
+    "_ui_note": "There is NO package.json anywhere in the tree. The stylesheets and scripts are committed under internal/ui/static/{css,js,bin} and pulled in by //go:embed at internal/ui/static/static.go. So this is a single-stage Go build with no Node builder at all -- the reason it was picked over authelia and gotify, which both need a frontend stage.",
+    "commit": "faecfa2fac61a91f4f69550bb1afd506c4b51749",
+    "source_date_epoch_basis": "release-cut",
+    "commit_epoch": 1793505308
+  },
+  "binaries_from_source": [
+    {
+      "name": "miniflux",
+      "main_pkg": ".",
+      "cgo_enabled": 0,
+      "build_tags": [],
+      "build_flags": [
+        "-trimpath"
+      ],
+      "ldflags": "-s -w -X miniflux.app/v2/internal/version.Version=@VERSION_BARE@ -X miniflux.app/v2/internal/version.Commit=@COMMIT:8@",
+      "out_path": "/usr/bin/miniflux",
+      "verify_subcmd": "-version",
+      "_note": "main package is the repo ROOT (main.go at the top level), not a ./cmd/ subdirectory. Makefile:4 stamps miniflux.app/v2/internal/version.Version and cli.go:109 prints that variable VERBATIM for -version, so the output is the bare `2.3.3` with no surrounding template -- unlike tempo and mimir, which print through prometheus/common/version.Print. Upstream's `make linux-amd64` target also builds with CGO_ENABLED=0, so the static build is upstream's own shipping configuration rather than something imposed here. -buildmode=pie is used only by their native `make miniflux` target and is dropped: it is not in the cross-compiled release build either.",
+      "_commit_note": "internal/version/version.go fills Commit from the Go build's vcs.revision (first 8 characters) when no ldflag sets it. Upstream builds in a git checkout, so its `miniflux -info` shows the commit; this build's source has no .git (reproducible from the vendored tree), so the same 8 characters are stamped from source.commit instead of reading 'Unknown (built outside VCS)'. BuildDate stays unset (upstream reads vcs.time) and -info reports it as unknown."
+    }
+  ],
+  "runtime_packages": [
+    "base-files",
+    "base-passwd",
+    "ca-certificates",
+    "coreutils",
+    "dash",
+    "libc6",
+    "libssl3t64",
+    "openssl",
+    "tzdata"
+  ],
+  "runtime_base": {
+    "kind": "chisel",
+    "shell": true,
+    "packages": "vendored/chisel/packages.tsv"
+  }
+}

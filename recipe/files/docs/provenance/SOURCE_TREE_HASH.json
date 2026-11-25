@@ -1,0 +1,9 @@
+{
+  "schema": "kitforge.source_tree_hash.v1",
+  "slug": "miniflux",
+  "repo": "https://github.com/miniflux/v2",
+  "ref": "2.3.5",
+  "commit": "faecfa2fac61a91f4f69550bb1afd506c4b51749",
+  "tree_listing_sha256": "0f56ee14b8860f3a29387d4aba9e2a3bc569f003173c77f7f8a352760ea5be21",
+  "file_count": 676
+}
