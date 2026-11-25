@@ -5,7 +5,35 @@ The offline build kit for the Docker image `readystack/miniflux:2.3.5-CE-ubuntu2
 - Release: [2.3.5-CE-ubuntu24.04-r4](https://github.com/readystack-dev/miniflux/releases/tag/2.3.5-CE-ubuntu24.04-r4)
 - Image: [`docker.io/readystack/miniflux:2.3.5-CE-ubuntu24.04-r4`](https://hub.docker.com/r/readystack/miniflux/tags), manifest digest `sha256:d2b7bbf466fd39c1928fd8e609ddd9d757eae1d5a8285949834dbb8f92c7b98d`
 - Product page: https://readystack.dev/products/miniflux
+- Source and build recipe: https://readystack.dev/products/miniflux/recipe
+- Build trail: https://readystack.dev/products/miniflux/trail/2.3.5-CE-ubuntu24.04-r4
 - Defects: this repository's Issues (defects recorded from 25 November 2026 on) and https://readystack.dev/defects.html?product=miniflux
+
+## The image
+
+ReadyStack Miniflux Community Edition build kit.
+
+## Who uses Miniflux and why
+
+Individuals and small teams who follow news, blogs and podcasts through feeds and want a simple self-hosted reader.
+
+Miniflux is a minimalist, self-hosted feed reader designed for readability. It can fetch the full original article and removes pixel trackers and tracking parameters.
+
+A typical use: A developer follows many blogs, release notes and news sites. Miniflux checks every feed, shows unread articles in a clean layout that works from the keyboard, fetches the full text when a feed carries only a summary, and strips trackers along the way.
+
+From the upstream project's own description: https://github.com/miniflux/v2, https://miniflux.app/.
+
+## This release
+
+- Docker Scout policy grade at release: **A** (94%), graded 2026-11-20 with `docker scout policy` (CLI 1.26.0, docker-default configuration).
+  - Docker Scout counts 7 packages with copyleft licences (GPL, LGPL, MPL), all of them operating-system packages (it counts only packages whose licence it can read; the SBOM lists every component).
+- Signed with ReadyStack's release key (fingerprint `04daa92344a52dbc`): https://readystack.dev/keys/cosign.pub.
+- Runs as a non-root user (`miniflux`).
+- Attestations on the image: an SPDX SBOM and SLSA provenance v1.
+- Rebuilt from this kit with network egress blocked on 2026-11-20; the rebuilt image digest is the published one.
+- Base: Ubuntu 24.04.
+
+The current grade, measured again every day, is on https://readystack.dev/products/miniflux.
 
 Miniflux is distributed under its upstream licence (Apache-2.0); the kit contains upstream's source under that licence, and each vendored component under its own.
 
@@ -39,3 +67,5 @@ The build trail (`ReadyStack-miniflux-2.3.5-CE-ubuntu24.04-r4.trail.json`, signe
 ## This repository
 
 `recipe/` holds the kit's recipe files (Dockerfiles, build scripts, pins) as published at https://readystack.dev/products/miniflux/recipe. The complete kit is the release download. Each release is a tag here.
+
+— ReadyStack · https://readystack.dev
